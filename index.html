@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Love Question</title>
+  <style>
+    body {
+        border: solid white 4px;
+        border-radius: 20px;
+      text-align: center;
+      margin-top: 100px;
+      font-family: Arial, sans-serif;
+      background-color: #ffe6e6; /* Light pink background */
+    }
+    h1 {
+      color: darkred; /* Dark red text for "Do you love me?" */
+    }
+    #yesBtn, #noBtn {
+        background-color:#fff7d1 ;
+      padding: 10px 20px;
+      font-size: 18px;
+      font-weight: bold; /* Bold text for buttons */
+      color: rgb(27, 24, 24); /* Black text */
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 20px;
+      text-align: center;
+    }
+    #yesBtn:hover, #noBtn:hover {
+   transform: scale(1.2); /* Enlarges the button when hovered */
+   background-color: aquamarine;
+   transition: ease-out;
+   transition-duration: 0.2s;
+}
+
+
+    #noBtn {
+      position: absolute;
+    }
+    #image {
+      display: none;
+      margin-top: 20px;
+    }
+    #image img {
+      width: 300px;
+      height: auto;
+    }
+    #message {
+      display: none; /* Hidden initially */
+      font-size: 24px;
+      color: red;
+      margin-top: 20px;
+    }
+    .emoji {
+      position: absolute;
+      font-size: 30px;
+      animation: hop 0.5s ease-in-out infinite;
+    }
+    @keyframes hop {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px); /* Move up */
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Do you love me🥰🥰?</h1>
+  <button id="yesBtn">Yes</button>
+  <button id="noBtn">No</button>
+  <div id="image">
+    <img src="./hi.jpeg" alt="Teddy Bear">
+    <p>Yay! I love you!</p>
+  </div>
+  <div id="message">pleaseeeee think againnnnn🥺</div>
+
+  <script>
+    const yesBtn = document.getElementById('yesBtn');
+    const noBtn = document.getElementById('noBtn');
+    const image = document.getElementById('image');
+    const message = document.getElementById('message');
+    let noClickCount = 0; // Counter for "No" button clicks
+
+    yesBtn.addEventListener('click', () => {
+      // Show the image and alert
+      image.style.display = 'block';
+      alert('Yay! I love you!');
+      
+      // Hide the message and disable both buttons after "Yes" is clicked
+      message.style.display = 'none';
+      yesBtn.disabled = true;
+      noBtn.disabled = true;
+
+      // Optionally, change their appearance to show they are disabled
+      yesBtn.style.opacity = '0.5';
+      noBtn.style.opacity = '0.5';
+    });
+
+    noBtn.addEventListener('click', () => {
+      // Only allow interaction if Yes hasn't been clicked
+      if (!yesBtn.disabled) {
+        noClickCount++; // Increment the click count
+
+        // After 5 clicks, show the message on the screen
+        if (noClickCount === 5) {
+          message.style.display = 'block'; // Display the message
+        }
+
+        // Make the No button smaller and move it randomly
+        noBtn.style.width = (noBtn.offsetWidth - 10) + 'px';
+        noBtn.style.height = (noBtn.offsetHeight - 5) + 'px';
+
+        const randomX = Math.random() * (window.innerWidth - noBtn.offsetWidth);
+        const randomY = Math.random() * (window.innerHeight - noBtn.offsetHeight);
+
+        noBtn.style.left = randomX + 'px';
+        noBtn.style.top = randomY + 'px';
+
+        // Create a crying emoji and place it randomly on the screen
+        const emoji = document.createElement('div');
+        emoji.textContent = '😭';
+        emoji.classList.add('emoji');
+        document.body.appendChild(emoji);
+        
+        // Position the emoji randomly on the screen
+        const emojiX = Math.random() * (window.innerWidth - 50); // Random X position
+        const emojiY = Math.random() * (window.innerHeight - 50); // Random Y position
+        emoji.style.left = emojiX + 'px';
+        emoji.style.top = emojiY + 'px';
+      }
+    });
+  </script>
+</body>
+</html>
